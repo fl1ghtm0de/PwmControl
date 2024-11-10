@@ -1,0 +1,94 @@
+﻿<Window x:Class="CoordinateSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Fan Curve Editor" Height="600" Width="1160"
+        Icon="pack://application:,,,/fan.ico"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Closing="Window_Closing">
+    <Window.Resources>
+        <!-- Style for the Title Bar Buttons -->
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="BackgroundRectangle" Fill="{TemplateBinding Background}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BackgroundRectangle" Property="Fill" Value="#333333" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BackgroundRectangle" Property="Fill" Value="#555555" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style for the Close Button -->
+        <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="BackgroundRectangle" Fill="{TemplateBinding Background}" />
+                            <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="14" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BackgroundRectangle" Property="Fill" Value="#E81123" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BackgroundRectangle" Property="Fill" Value="#F1707A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Custom Title Bar -->
+        <Border Background="#FF007ACC" Height="40" VerticalAlignment="Top" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <Grid>
+                <!-- Title -->
+                <TextBlock Text="Fan Curve Editor" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" FontWeight="Bold" />
+
+                <!-- Control Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <!-- Minimize Button -->
+                    <Button Style="{StaticResource TitleBarButtonStyle}" Content="&#xE921;" Click="Minimize_Click" />
+
+                    <!-- Maximize/Restore Button -->
+                    <Button Style="{StaticResource TitleBarButtonStyle}" Content="&#xE922;" Click="Maximize_Click" />
+
+                    <!-- Close Button -->
+                    <Button Style="{StaticResource CloseButtonStyle}" Click="Close_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Content Area -->
+        <Canvas Name="DrawingCanvas" Background="White" Margin="0,40,0,0" Loaded="Canvas_Loaded" SizeChanged="Canvas_SizeChanged" MouseLeftButtonDown="Canvas_MouseLeftButtonDown" MouseMove="Canvas_MouseMove" MouseLeftButtonUp="Canvas_MouseLeftButtonUp">
+            <!-- X Axis -->
+            <Line Name="XAxis" Stroke="Black" StrokeThickness="1"/>
+            <!-- Y Axis -->
+            <Line Name="YAxis" Stroke="Black" StrokeThickness="1"/>
+        </Canvas>
+    </Grid>
+</Window>

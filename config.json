@@ -1,0 +1,4 @@
+{
+    "serial_port_windows" : "COM6",
+    "serial_port_linux" : "/dev/ttyACM0"
+}

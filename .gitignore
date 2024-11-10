@@ -1,0 +1,10 @@
+dist/
+build/
+bin/
+.vs
+.venv
+.vscode
+
+*.exe
+*.dll
+*.xml
